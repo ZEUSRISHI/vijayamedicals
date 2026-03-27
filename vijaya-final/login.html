@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Vijaya Medicals — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#0a1628 0%,#0d3b6e 50%,#0a1628 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.bg-pattern{position:fixed;inset:0;background-image:radial-gradient(circle at 25% 25%,rgba(21,101,192,0.15) 0%,transparent 50%),radial-gradient(circle at 75% 75%,rgba(0,150,136,0.1) 0%,transparent 50%);pointer-events:none}
+.card{background:rgba(255,255,255,0.97);border-radius:20px;padding:40px 36px;width:100%;max-width:420px;box-shadow:0 30px 80px rgba(0,0,0,0.4);position:relative;animation:slideUp .5s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.logo-area{text-align:center;margin-bottom:30px}
+.logo-svg{margin:0 auto 12px;display:block}
+.shop-name{font-family:'Teko',sans-serif;font-size:28px;font-weight:700;color:#1565C0;letter-spacing:1px;line-height:1}
+.shop-tag{font-size:11px;color:#607D8B;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.shop-addr{font-size:10.5px;color:#78909C;margin-top:6px;line-height:1.5}
+h2{font-size:16px;font-weight:700;color:#1A1A2E;margin-bottom:6px;text-align:center}
+.sub{font-size:12px;color:#607D8B;text-align:center;margin-bottom:24px}
+.fgroup{margin-bottom:16px}
+label{display:block;font-size:11px;font-weight:700;color:#37474F;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+input{width:100%;padding:11px 14px;border:1.5px solid #CFD8DC;border-radius:10px;font-size:14px;font-family:'Nunito',sans-serif;color:#1A1A2E;background:#fff;transition:.2s;outline:none}
+input:focus{border-color:#1565C0;box-shadow:0 0 0 3px rgba(21,101,192,0.12)}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:44px}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#90A4AE;font-size:16px;padding:4px}
+.btn-login{width:100%;padding:13px;background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;transition:.2s;margin-top:6px;letter-spacing:.3px}
+.btn-login:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(21,101,192,0.4)}
+.btn-login:active{transform:translateY(0)}
+.error{background:#FFEBEE;border:1px solid #FFCDD2;border-radius:8px;padding:10px 14px;font-size:12px;font-weight:600;color:#C62828;margin-bottom:14px;display:none;align-items:center;gap:8px}
+.error.show{display:flex}
+.secure-note{text-align:center;margin-top:18px;font-size:10.5px;color:#90A4AE;display:flex;align-items:center;justify-content:center;gap:5px}
+.footer-info{text-align:center;margin-top:10px;font-size:9.5px;color:#B0BEC5}
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div class="card">
+  <!-- LOGO SVG -->
+  <div class="logo-area">
+    <svg class="logo-svg" width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="36" cy="36" r="36" fill="#1565C0"/>
+      <rect x="30" y="14" width="12" height="44" rx="6" fill="white"/>
+      <rect x="14" y="30" width="44" height="12" rx="6" fill="white"/>
+      <circle cx="36" cy="36" r="8" fill="#1565C0"/>
+      <circle cx="36" cy="36" r="5" fill="#42A5F5"/>
+      <circle cx="36" cy="36" r="2.5" fill="white"/>
+    </svg>
+    <div class="shop-name">Vijaya Medicals</div>
+    <div class="shop-tag">Pharmacy Management System</div>
+    <div class="shop-addr">FPQX+8M8, Thiruvalluvar Salai, Oddanchatram<br>Tamil Nadu 624619 &nbsp;|&nbsp; Ph: 8973389393</div>
+  </div>
+
+  <h2>Secure Sign In</h2>
+  <p class="sub">Authorized personnel only</p>
+
+  <div class="error" id="err-msg">&#10060; Invalid email or password. Access denied.</div>
+
+  <div class="fgroup">
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="care.vijayamedicals@gmail.com" autocomplete="email">
+  </div>
+  <div class="fgroup">
+    <label>Password</label>
+    <div class="pw-wrap">
+      <input type="password" id="password" placeholder="Enter password" id="password" autocomplete="current-password">
+      <button class="pw-toggle" onclick="togglePw()" type="button" id="pw-eye">👁️</button>
+    </div>
+  </div>
+
+  <button class="btn-login" onclick="doLogin()">🔐 Sign In to Vijaya Medicals</button>
+
+  <div class="secure-note">🔒 Secured &nbsp;|&nbsp; Data stored locally on this device</div>
+  <div class="footer-info">Only care.vijayamedicals@gmail.com can access this system</div>
+</div>
+
+<script>
+function togglePw(){
+  const inp=document.getElementById('password');
+  const eye=document.getElementById('pw-eye');
+  if(inp.type==='password'){inp.type='text';eye.textContent='🙈'}
+  else{inp.type='password';eye.textContent='👁️'}
+}
+
+function doLogin(){
+  const email=document.getElementById('email').value.trim().toLowerCase();
+  const pw=document.getElementById('password').value;
+  const err=document.getElementById('err-msg');
+
+  if(email==='care.vijayamedicals@gmail.com' && pw==='Vijayamedicals'){
+    sessionStorage.setItem('vm_auth','1');
+    sessionStorage.setItem('vm_login_time',Date.now());
+    window.location.href='index.html';
+  } else {
+    err.classList.add('show');
+    document.getElementById('password').value='';
+    setTimeout(()=>err.classList.remove('show'),4000);
+  }
+}
+
+document.addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+
+// Auto redirect if already logged in
+if(sessionStorage.getItem('vm_auth')==='1'){
+  window.location.href='index.html';
+}
+</script>
+</body>
+</html>

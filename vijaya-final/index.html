@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Vijaya Medicals — PMS v3</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231565C0'/><rect x='42' y='20' width='16' height='60' rx='8' fill='white'/><rect x='20' y='42' width='60' height='16' rx='8' fill='white'/></svg>">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside id="sidebar">
+  <div class="logo-wrap">
+    <svg class="logo-svg-sm" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="20" fill="white" fill-opacity=".15"/>
+      <rect x="17" y="8" width="6" height="24" rx="3" fill="white"/>
+      <rect x="8" y="17" width="24" height="6" rx="3" fill="white"/>
+      <circle cx="20" cy="20" r="4" fill="#42A5F5"/>
+      <circle cx="20" cy="20" r="2" fill="white"/>
+    </svg>
+    <div class="logo-text">
+      <div class="lt1">Vijaya Medicals</div>
+      <div class="lt2">PMS v3.0</div>
+    </div>
+  </div>
+  <div class="shop-strip">
+    <div class="sn">📍 Oddanchatram TN 624619</div>
+    <div class="sa">📞 8973389393</div>
+  </div>
+  <nav class="nav">
+    <div class="ns">Overview</div>
+    <div class="ni active" data-p="dashboard" onclick="goto('dashboard')"><span class="ic">🏠</span>Dashboard</div>
+    <div class="ns">Inventory</div>
+    <div class="ni" data-p="medicines" onclick="goto('medicines')"><span class="ic">💊</span>Medicines</div>
+    <div class="ni" data-p="expiry" onclick="goto('expiry')"><span class="ic">📅</span>Expiry Manager<span class="nb" id="nav-exp-nb" style="display:none">0</span></div>
+    <div class="ns">Billing</div>
+    <div class="ni" data-p="billing" onclick="goto('billing')"><span class="ic">🧾</span>New Bill</div>
+    <div class="ni" data-p="bills" onclick="goto('bills')"><span class="ic">📋</span>Bill History</div>
+    <div class="ns">Master Data</div>
+    <div class="ni" data-p="suppliers" onclick="goto('suppliers')"><span class="ic">🚚</span>Suppliers</div>
+    <div class="ni" data-p="customers" onclick="goto('customers')"><span class="ic">👥</span>Customers</div>
+    <div class="ns">Alerts</div>
+    <div class="ni" data-p="alerts" onclick="goto('alerts')"><span class="ic">🔔</span>Alerts & Reminders</div>
+    <div class="ns">Analytics</div>
+    <div class="ni" data-p="reports" onclick="goto('reports')"><span class="ic">📊</span>Reports</div>
+    <div class="ni" data-p="downloads" onclick="goto('downloads')"><span class="ic">⬇️</span>Downloads & PDF</div>
+    <div class="ni" data-p="settings" onclick="goto('settings')"><span class="ic">⚙️</span>Settings</div>
+    <div class="ns">Account</div>
+    <div class="ni" onclick="logout()"><span class="ic">🚪</span>Sign Out</div>
+  </nav>
+  <div class="sb-foot">
+    <div class="user-pill">
+      <div class="uav">V</div>
+      <div class="ud"><small>care.vijayamedicals@gmail.com</small><strong>Admin</strong></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+  <header class="topbar">
+    <div class="tb-left">
+      <button class="hamburger" onclick="openSidebar()">☰</button>
+      <div class="page-ttl" id="page-ttl">Dashboard</div>
+    </div>
+    <div class="tb-right">
+      <span class="tdate" id="tb-date"></span>
+      <button class="btn btn-pri btn-sm" onclick="goto('billing')">➕ New Bill</button>
+      <button class="btn btn-out btn-sm" onclick="goto('medicines');setTimeout(openAddMed,100)">💊 Add Med</button>
+      <button class="btn btn-gst btn-sm" onclick="exportBackup()">💾 Backup</button>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="page active" id="pg-dashboard">
+      <div class="stat-row">
+        <div class="sc" onclick="goto('medicines')"><div class="sci bl">💊</div><div><div class="sv" id="d-meds">0</div><div class="sl">Medicines</div></div></div>
+        <div class="sc" onclick="goto('billing')"><div class="sci gr">💰</div><div><div class="sv" id="d-rev">₹0</div><div class="sl">Today Revenue</div></div></div>
+        <div class="sc" onclick="goto('bills')"><div class="sci tl">🧾</div><div><div class="sv" id="d-bills">0</div><div class="sl">Today Bills</div></div></div>
+        <div class="sc" onclick="goto('expiry')"><div class="sci rd">⚠️</div><div><div class="sv" id="d-exp">0</div><div class="sl">Expiry Alerts</div></div></div>
+        <div class="sc" onclick="goto('medicines')"><div class="sci yl">📦</div><div><div class="sv" id="d-low">0</div><div class="sl">Low Stock</div></div></div>
+      </div>
+      <div class="db-grid">
+        <div class="card">
+          <div class="card-head"><span class="card-ttl">🧾 Recent Bills</span><button class="btn btn-xs btn-out" onclick="goto('bills')">View All →</button></div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Bill No</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Amount</th><th>Mode</th><th></th></tr></thead>
+            <tbody id="d-bills-tb"></tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-ttl">⚠️ Expiry Alerts</span><button class="btn btn-xs btn-red" onclick="goto('expiry')" style="background:var(--red-lt);color:var(--red);border-color:var(--red)">View All</button></div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Medicine</th><th>Batch</th><th>Expiry</th><th>Status</th></tr></thead>
+            <tbody id="d-exp-tb"></tbody>
+          </table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MEDICINES ═══ -->
+    <div class="page" id="pg-medicines">
+      <div class="toolbar">
+        <div class="srch"><span class="si">🔍</span><input type="text" placeholder="Search name, batch, box, salt..." oninput="loadMeds(this.value)"></div>
+        <select style="max-width:140px" onchange="loadMeds()">
+          <option value="">All Categories</option>
+          <option>Tablet</option><option>Capsule</option><option>Syrup</option>
+          <option>Injection</option><option>Ointment</option><option>Liquid</option><option>Other</option>
+        </select>
+        <span id="med-cnt" style="font-size:11px;color:var(--txt2);font-weight:700"></span>
+        <div style="margin-left:auto"><button class="btn btn-pri" onclick="openAddMed()">➕ Add Medicine</button></div>
+      </div>
+      <div class="card">
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Medicine / Salt</th><th>Cat.</th><th>Manufacturer</th>
+            <th>Batch No</th><th>Box No</th><th>Expiry</th>
+            <th>MRP</th><th>PTR</th><th>Stock</th><th>GST</th><th>Sched.</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="med-tb"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ═══ BILLING ═══ -->
+    <div class="page" id="pg-billing">
+      <div class="bill-layout">
+        <div>
+          <!-- Bill Info -->
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-head"><span class="card-ttl">📝 Bill Details</span></div>
+            <div class="card-body">
+              <div class="fg fg4" style="margin-bottom:10px">
+                <div class="fgrp"><label>Bill No</label><input id="bf-no" readonly></div>
+                <div class="fgrp"><label>Date</label><input type="date" id="bf-date"></div>
+                <div class="fgrp"><label>Time</label><input type="text" id="bf-time"></div>
+                <div class="fgrp"><label>Doctor Name</label><input type="text" id="bf-doctor" placeholder="Dr. Name"></div>
+              </div>
+              <div class="fg fg4">
+                <div class="fgrp"><label>Patient Name</label><input type="text" id="bf-cust" placeholder="Patient name"></div>
+                <div class="fgrp"><label>Phone</label><input type="tel" id="bf-phone" placeholder="Mobile"></div>
+                <div class="fgrp"><label>Doctor Reg No</label><input type="text" id="bf-regno" placeholder="MCI Reg No"></div>
+                <div class="fgrp"><label>Extra Disc %</label><input type="number" id="bf-xdisc" placeholder="0" min="0" max="100" oninput="calcBill()"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Add Medicine -->
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-head"><span class="card-ttl">💊 Add Medicine</span></div>
+            <div class="card-body">
+              <div class="fgrp" style="position:relative;margin-bottom:10px">
+                <label>Search Medicine (Name / Batch / Salt)</label>
+                <input type="text" id="bf-msearch" placeholder="Start typing..." oninput="searchMed()" autocomplete="off">
+                <input type="hidden" id="bf-medid">
+                <div id="bf-mdd" style="position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--pri);border-radius:0 0 8px 8px;z-index:300;display:none;box-shadow:var(--shlg);max-height:220px;overflow-y:auto"></div>
+              </div>
+              <div class="fg fg6">
+                <div class="fgrp"><label>Batch No</label><input type="text" id="bf-batch"></div>
+                <div class="fgrp"><label>Box No</label><input type="text" id="bf-boxno"></div>
+                <div class="fgrp"><label>Expiry</label><input type="text" id="bf-expiry" placeholder="YYYY-MM"></div>
+                <div class="fgrp"><label>MRP (₹)</label><input type="number" id="bf-mrp" step="0.01"></div>
+                <div class="fgrp"><label>Qty</label><input type="number" id="bf-qty" min="1" value="1"></div>
+                <div class="fgrp"><label>Disc %</label><input type="number" id="bf-disc" min="0" max="100" value="0"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap">
+                <div class="fgrp" style="width:90px"><label>GST %</label>
+                  <select id="bf-gst"><option value="0">0%</option><option value="5">5%</option><option value="12" selected>12%</option><option value="18">18%</option></select>
+                </div>
+                <button class="btn btn-pri" style="margin-top:15px" onclick="addItem()">➕ Add to Bill</button>
+              </div>
+            </div>
+          </div>
+          <!-- Items -->
+          <div class="card">
+            <div class="card-head"><span class="card-ttl">🛒 Bill Items <span id="bs-cnt" style="font-size:11px;color:var(--txt2);font-weight:400">0 item(s)</span></span></div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Medicine</th><th>Batch</th><th>Box No</th><th>Expiry</th><th>MRP</th><th>Qty</th><th>Disc%</th><th>GST%</th><th>Disc Amt</th><th>CGST</th><th>SGST</th><th>Amount</th><th></th></tr></thead>
+              <tbody id="bf-items"></tbody>
+            </table></div>
+          </div>
+        </div>
+        <!-- Summary -->
+        <div>
+          <div class="bill-sum">
+            <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:600;color:var(--pri);margin-bottom:14px">💰 Bill Summary</div>
+            <div class="bsr"><span>Gross Amount</span><span id="bs-gross">₹0.00</span></div>
+            <div class="bsr disc"><span>Disc. (Items)</span><span id="bs-disc">-₹0.00</span></div>
+            <div class="bsr gst"><span>CGST</span><span id="bs-cgst">₹0.00</span></div>
+            <div class="bsr gst"><span>SGST</span><span id="bs-sgst">₹0.00</span></div>
+            <div class="bsr gst"><span>Total GST</span><span id="bs-gst">₹0.00</span></div>
+            <div class="bsr disc"><span>Extra Discount</span><span id="bs-xdisc">-₹0.00</span></div>
+            <div class="bsr net"><span>NET TOTAL</span><span id="bs-net">₹0.00</span></div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--txt2);margin:10px 0 5px;text-transform:uppercase;letter-spacing:.5px">Payment Mode</div>
+            <div class="pay-grid">
+              <div class="pb sel" data-mode="Cash">💵 Cash</div>
+              <div class="pb" data-mode="UPI">📱 UPI</div>
+              <div class="pb" data-mode="Card">💳 Card</div>
+              <div class="pb" data-mode="Credit">📝 Credit</div>
+              <div class="pb" data-mode="Insurance">🏥 Insur.</div>
+              <div class="pb" data-mode="Online">🌐 Online</div>
+            </div>
+            <button class="btn btn-grn" style="width:100%;justify-content:center;padding:11px;font-size:13px;margin-top:10px" onclick="saveBill(true)">🖨️ Save & Print Bill</button>
+            <button class="btn btn-pri" style="width:100%;justify-content:center;padding:9px;margin-top:6px" onclick="saveBill(false)">💾 Save Only</button>
+            <button class="btn btn-gst" style="width:100%;justify-content:center;margin-top:6px" onclick="initBill()">🔄 Clear Bill</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ BILLS HISTORY ═══ -->
+    <div class="page" id="pg-bills">
+      <div class="toolbar">
+        <div class="srch"><span class="si">🔍</span><input type="text" placeholder="Search bill no, customer, phone..." oninput="loadBills(this.value)"></div>
+        <span id="bills-info" style="font-size:11px;color:var(--txt2);font-weight:700"></span>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table>
+        <thead><tr><th>Bill No</th><th>Date & Time</th><th>Patient</th><th>Phone</th><th>Doctor</th><th>Items</th><th>Amount</th><th>Mode</th><th>Actions</th></tr></thead>
+        <tbody id="bills-tb"></tbody>
+      </table></div></div>
+    </div>
+
+    <!-- ═══ SUPPLIERS ═══ -->
+    <div class="page" id="pg-suppliers">
+      <div class="toolbar">
+        <div class="srch"><span class="si">🔍</span><input type="text" placeholder="Search suppliers..." oninput="loadSups(this.value)"></div>
+        <button class="btn btn-pri" onclick="openAddSup()">➕ Add Supplier</button>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table>
+        <thead><tr><th>Company</th><th>Contact</th><th>Phone</th><th>Email</th><th>Address</th><th>GST No</th><th>Drug Lic</th><th>Actions</th></tr></thead>
+        <tbody id="sup-tb"></tbody>
+      </table></div></div>
+    </div>
+
+    <!-- ═══ CUSTOMERS ═══ -->
+    <div class="page" id="pg-customers">
+      <div class="toolbar">
+        <div class="srch"><span class="si">🔍</span><input type="text" placeholder="Search customers..." oninput="loadCusts(this.value)"></div>
+        <button class="btn btn-pri" onclick="openAddCust()">➕ Add Customer</button>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table>
+        <thead><tr><th>Name</th><th>Phone</th><th>Address</th><th>Age</th><th>Type</th><th>Last Bill</th><th>Registered</th><th>Actions</th></tr></thead>
+        <tbody id="cust-tb"></tbody>
+      </table></div></div>
+    </div>
+
+    <!-- ═══ EXPIRY MANAGER ═══ -->
+    <div class="page" id="pg-expiry">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
+        <div class="sc" style="background:var(--red-lt)"><div class="sci rd">💀</div><div><div class="sv" style="color:var(--red)" id="exp-n-exp">0</div><div class="sl">Expired</div></div></div>
+        <div class="sc" style="background:#FFF3E0"><div class="sci" style="background:var(--amb-lt);color:var(--amb)">🚨</div><div><div class="sv" style="color:var(--amb)" id="exp-n-c1">0</div><div class="sl">Within 1 Month</div></div></div>
+        <div class="sc" style="background:#FFF8E1"><div class="sci yl">⚠️</div><div><div class="sv" style="color:var(--amb)" id="exp-n-c3">0</div><div class="sl">Within 3 Months</div></div></div>
+        <div class="sc" style="background:var(--ylw-lt)"><div class="sci yl">📅</div><div><div class="sv" style="color:var(--ylw)" id="exp-n-w6">0</div><div class="sl">Within 6 Months</div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-ttl">📋 Expiry Detail List</span><button class="btn btn-sm btn-out" onclick="loadExpiry()">🔄 Refresh</button></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Medicine / Salt</th><th>Manufacturer</th><th>Batch</th><th>Box No</th><th>Rack</th><th>Stock</th><th>Expiry</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="exp-tb"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ═══ ALERTS & REMINDERS ═══ -->
+    <div class="page" id="pg-alerts">
+      <div class="db-grid">
+        <div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-head"><span class="card-ttl">⚠️ Medicine Expiry Alerts</span><button class="btn btn-sm btn-out" onclick="loadAlerts()">🔄 Refresh</button></div>
+            <div class="card-body" id="exp-alerts"></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-head"><span class="card-ttl">🔔 Monthly Customer Reminders</span></div>
+            <div class="card-body" id="monthly-reminders"></div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <div class="card-head"><span class="card-ttl">📋 Reminder Guide</span></div>
+            <div class="card-body">
+              <div style="font-size:12px;line-height:1.8;color:var(--txt2)">
+                <strong style="color:var(--txt)">How reminders work:</strong><br>
+                Customers marked as "Monthly" get a reminder alert when their last bill was 25+ days ago.<br><br>
+                <strong style="color:var(--txt)">Expiry alerts trigger at:</strong><br>
+                🔴 <strong>1 month</strong> — Urgent: remove from shelf<br>
+                🟠 <strong>3 months</strong> — Return to distributor<br>
+                🟡 <strong>6 months</strong> — Monitor & use first<br><br>
+                <strong style="color:var(--txt)">To send WhatsApp/SMS:</strong><br>
+                Copy the message shown and send via WhatsApp to the customer number.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ REPORTS ═══ -->
+    <div class="page" id="pg-reports">
+      <div class="rep-grid">
+        <div class="rep-card"><div class="rep-val" id="r-t-rev">₹0</div><div class="rep-lbl">Today's Revenue</div></div>
+        <div class="rep-card"><div class="rep-val" id="r-t-cnt">0</div><div class="rep-lbl">Today's Bills</div></div>
+        <div class="rep-card"><div class="rep-val" id="r-m-rev">₹0</div><div class="rep-lbl">This Month Revenue</div></div>
+        <div class="rep-card"><div class="rep-val" id="r-m-cnt">0</div><div class="rep-lbl">This Month Bills</div></div>
+        <div class="rep-card"><div class="rep-val" id="r-inv">₹0</div><div class="rep-lbl">Inventory Value</div></div>
+        <div class="rep-card"><div class="rep-val" id="r-sku">0</div><div class="rep-lbl">Total SKUs</div></div>
+        <div class="rep-card"><div class="rep-val" id="r-gst">₹0</div><div class="rep-lbl">GST Collected (Month)</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-ttl">📊 Stock by Category</span></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Category</th><th>Count</th><th style="width:40%">Distribution</th></tr></thead>
+          <tbody id="r-cat"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ═══ DOWNLOADS & PDF ═══ -->
+    <div class="page" id="pg-downloads">
+      <!-- Date Range Selector -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-head"><span class="card-ttl">📅 Select Date Range</span></div>
+        <div class="card-body">
+          <div class="fg fg4" style="align-items:flex-end">
+            <div class="fgrp"><label>From Date</label><input type="date" id="dl-from"></div>
+            <div class="fgrp"><label>To Date</label><input type="date" id="dl-to"></div>
+            <div class="fgrp"><label>Quick Select</label>
+              <select id="dl-quick" onchange="applyQuickDate(this.value)">
+                <option value="">Custom</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="lastmonth">Last Month</option>
+                <option value="year">This Year</option>
+              </select>
+            </div>
+            <div class="fgrp"><label>&nbsp;</label>
+              <button class="btn btn-pri" onclick="loadDownloadPreview()">🔍 Preview Stats</button>
+            </div>
+          </div>
+          <!-- Preview stats -->
+          <div id="dl-preview" style="display:none;margin-top:14px">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+              <div style="background:var(--pri-lt);border-radius:8px;padding:12px;text-align:center;border:1px solid var(--bdr2)">
+                <div style="font-size:20px;font-weight:700;color:var(--pri)" id="prev-sales">₹0</div>
+                <div style="font-size:10px;color:var(--txt2);font-weight:700">Total Sales</div>
+              </div>
+              <div style="background:var(--grn-lt);border-radius:8px;padding:12px;text-align:center;border:1px solid var(--bdr2)">
+                <div style="font-size:20px;font-weight:700;color:var(--grn)" id="prev-profit">₹0</div>
+                <div style="font-size:10px;color:var(--txt2);font-weight:700">Gross Profit</div>
+              </div>
+              <div style="background:var(--red-lt);border-radius:8px;padding:12px;text-align:center;border:1px solid var(--bdr2)">
+                <div style="font-size:20px;font-weight:700;color:var(--red)" id="prev-disc">₹0</div>
+                <div style="font-size:10px;color:var(--txt2);font-weight:700">Discounts Given</div>
+              </div>
+              <div style="background:var(--acc-lt);border-radius:8px;padding:12px;text-align:center;border:1px solid var(--bdr2)">
+                <div style="font-size:20px;font-weight:700;color:var(--acc)" id="prev-bills">0</div>
+                <div style="font-size:10px;color:var(--txt2);font-weight:700">Bills Count</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Cards -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:14px">
+
+        <!-- Sales & Profit Report -->
+        <div class="card">
+          <div class="card-head" style="background:var(--grn-lt)">
+            <span class="card-ttl" style="color:var(--grn)">💰 Sales & Profit Report</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px;color:var(--txt2);margin-bottom:14px;line-height:1.6">
+              Detailed bill-by-bill profit analysis. Shows <strong>purchase price (PTR)</strong> vs <strong>selling price (MRP)</strong>, discount applied, gross profit per item, and profit margin % for each medicine sold.
+            </p>
+            <div style="background:var(--grn-lt);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--grn);margin-bottom:12px">
+              ✅ Includes: Bill No, Medicine, PTR, MRP, Discount%, Profit, Margin%
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-grn" onclick="dlSalesProfit()">⬇️ Download PDF</button>
+              <button class="btn btn-out" onclick="emailSalesProfit()">📧 Send to Email</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stock / Medicine Report -->
+        <div class="card">
+          <div class="card-head" style="background:var(--pri-lt)">
+            <span class="card-ttl" style="color:var(--pri)">📦 Stock & Medicine Report</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px;color:var(--txt2);margin-bottom:14px;line-height:1.6">
+              Complete medicine inventory with expiry alerts, low stock warnings, batch numbers, box numbers, rack locations, and stock values (MRP & PTR).
+            </p>
+            <div style="background:var(--pri-lt);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--pri);margin-bottom:12px">
+              ✅ Includes: Expiry warnings (1/3/6 month), low stock, full list
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-pri" onclick="dlStock()">⬇️ Download PDF</button>
+              <button class="btn btn-out" onclick="emailStock()">📧 Send to Email</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Report -->
+        <div class="card">
+          <div class="card-head" style="background:#FFF3E0">
+            <span class="card-ttl" style="color:var(--amb)">👥 Customer Report</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px;color:var(--txt2);margin-bottom:14px;line-height:1.6">
+              All customers with purchase history, total amount spent, monthly reminder alerts for patients who haven't visited in 25+ days, and SMS text ready to copy.
+            </p>
+            <div style="background:var(--amb-lt);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--amb);margin-bottom:12px">
+              ✅ Includes: Monthly reminders, SMS text, total spent per customer
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-warning" onclick="dlCustomers()">⬇️ Download PDF</button>
+              <button class="btn btn-out" onclick="emailCustomers()">📧 Send to Email</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Business Report -->
+        <div class="card" style="border:2px solid var(--pri)">
+          <div class="card-head" style="background:var(--pri);border-radius:10px 10px 0 0">
+            <span class="card-ttl" style="color:#fff">⭐ Complete Business Report</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px;color:var(--txt2);margin-bottom:14px;line-height:1.6">
+              Everything in one PDF — sales summary, profit analysis, all bills, expiry warnings, low stock alerts, monthly customer reminders. Perfect for daily/monthly review.
+            </p>
+            <div style="background:var(--pri-lt);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--pri);margin-bottom:12px">
+              ✅ All-in-one: Sales + Profit + Expiry + Low Stock + Reminders
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-pri" onclick="dlFullReport()">⬇️ Download Full PDF</button>
+              <button class="btn btn-out" onclick="emailFullReport()">📧 Send to Email</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- JSON Backup -->
+      <div class="card">
+        <div class="card-head"><span class="card-ttl">💾 Data Backup</span></div>
+        <div class="card-body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div>
+            <p style="font-size:12px;color:var(--txt2);line-height:1.6">Download all data as a JSON backup file. Keeps all medicines, bills, customers, suppliers. Store safely.</p>
+          </div>
+          <button class="btn btn-grn" onclick="exportBackup()">⬇️ Download JSON Backup</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SETTINGS ═══ -->
+    <div class="page" id="pg-settings">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+        <div class="card">
+          <div class="card-head"><span class="card-ttl">⚙️ Shop Settings</span></div>
+          <div class="card-body">
+            <div class="fg fg2">
+              <div class="fgrp"><label>Shop Name</label><input id="st-shopName" value="Vijaya Medicals"></div>
+              <div class="fgrp"><label>Owner Name</label><input id="st-owner"></div>
+              <div class="fgrp" style="grid-column:span 2"><label>Address</label><input id="st-address" value="FPQX+8M8, Thiruvalluvar Salai, Oddanchatram, TN 624619"></div>
+              <div class="fgrp"><label>Phone</label><input id="st-phone" value="8973389393"></div>
+              <div class="fgrp"><label>Email</label><input id="st-email" value="care.vijayamedicals@gmail.com"></div>
+              <div class="fgrp"><label>GST Number</label><input id="st-gst" value="33XXXXXVM01Z5"></div>
+              <div class="fgrp"><label>Drug Lic No</label><input id="st-dlNo" value="TN-OD-1234/2023"></div>
+            </div>
+            <div class="form-foot"><button class="btn btn-pri" onclick="saveSettings()">💾 Save Settings</button></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-ttl">🔒 Security & Backup</span></div>
+          <div class="card-body">
+            <div style="background:var(--grn-lt);border-radius:8px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--grn)">
+              ✅ <strong>Logged in as:</strong> care.vijayamedicals@gmail.com<br>
+              🔒 Auto-logout after 8 hours of login
+            </div>
+            <div style="background:var(--pri-lt);border-radius:8px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--pri)">
+              📦 <strong>Data Storage:</strong> IndexedDB (Browser Local)<br>
+              🗄️ Database: VijayaPMSv3<br>
+              📍 Location: Chrome → DevTools → Application → IndexedDB
+            </div>
+            <div style="background:var(--ylw-lt);border-radius:8px;padding:12px;font-size:12px;color:#5D4037">
+              ⚠️ <strong>Data Safety Tips:</strong><br>
+              • Download backup regularly using button below<br>
+              • Do NOT clear browser data / cache<br>
+              • Use same browser & same computer always<br>
+              • Keep backup JSON file safe
+            </div>
+            <div class="form-foot">
+              <button class="btn btn-grn" onclick="exportBackup()">⬇️ Download Backup (JSON)</button>
+              <button class="btn btn-red" onclick="logout()">🚪 Sign Out</button>
+              <a href="printer-setup.html" target="_blank" class="btn btn-out">🖨️ Printer Setup Guide</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ MEDICINE MODAL ═══ -->
+<div class="overlay" id="med-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-ttl" id="med-modal-ttl">Add Medicine</div>
+      <button class="close-btn" onclick="closeModal('med-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--pri-lt);border-radius:8px;padding:9px 13px;margin-bottom:14px;font-size:11px;color:var(--pri);font-weight:700">
+        💡 Fill all fields for accurate billing, expiry tracking and GST compliance
+      </div>
+      <form id="med-form" onsubmit="return false">
+        <div class="fg fg3" style="margin-bottom:10px">
+          <div class="fgrp"><label>Medicine Name *</label><input id="mf-name" required placeholder="e.g. Paracetamol 500mg"></div>
+          <div class="fgrp"><label>Salt / Generic Name</label><input id="mf-salt" placeholder="e.g. Paracetamol"></div>
+          <div class="fgrp"><label>Category *</label>
+            <select id="mf-category">
+              <option value="">Select</option>
+              <option>Tablet</option><option>Capsule</option><option>Syrup</option>
+              <option>Injection</option><option>Ointment</option><option>Cream</option>
+              <option>Gel</option><option>Drops</option><option>Inhaler</option>
+              <option>Powder</option><option>Suspension</option><option>Liquid</option>
+              <option>Sachet</option><option>Device</option><option>Other</option>
+            </select>
+          </div>
+          <div class="fgrp"><label>Manufacturer</label><input id="mf-manufacturer" placeholder="e.g. Cipla Ltd"></div>
+          <div class="fgrp"><label>Supplier</label><input id="mf-supplier" placeholder="Supplier name"></div>
+          <div class="fgrp"><label>Schedule</label>
+            <select id="mf-schedule">
+              <option value="OTC">OTC</option><option value="H">Schedule H</option>
+              <option value="H1">Schedule H1</option><option value="X">Schedule X</option><option value="G">Schedule G</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        <div class="fg fg3" style="margin:10px 0">
+          <div class="fgrp"><label>Batch Number *</label><input id="mf-batchNo" required placeholder="e.g. B2024001"></div>
+          <div class="fgrp"><label>Box Number</label><input id="mf-boxNo" placeholder="e.g. BX-001"></div>
+          <div class="fgrp"><label>Expiry (YYYY-MM)</label><input type="month" id="mf-expiry"></div>
+          <div class="fgrp"><label>HSN Code</label><input id="mf-hsnCode" placeholder="30049099"></div>
+          <div class="fgrp"><label>Rack Location</label><input id="mf-rack" placeholder="A-01"></div>
+          <div class="fgrp"><label>Unit</label>
+            <select id="mf-unit"><option>Strip</option><option>Bottle</option><option>Box</option><option>Tube</option><option>Vial</option><option>Sachet</option><option>Pcs</option><option>Ampoule</option></select>
+          </div>
+        </div>
+        <hr>
+        <div class="fg fg5" style="margin:10px 0">
+          <div class="fgrp"><label>MRP (₹) *</label><input type="number" id="mf-mrp" step="0.01" placeholder="0.00"></div>
+          <div class="fgrp"><label>PTR (₹)</label><input type="number" id="mf-ptr" step="0.01" placeholder="0.00"></div>
+          <div class="fgrp"><label>PTS (₹)</label><input type="number" id="mf-pts" step="0.01" placeholder="0.00"></div>
+          <div class="fgrp"><label>GST %</label>
+            <select id="mf-gst"><option value="0">0%</option><option value="5">5%</option><option value="12" selected>12%</option><option value="18">18%</option></select>
+          </div>
+          <div class="fgrp"><label>Stock Qty</label><input type="number" id="mf-qty" placeholder="0" min="0"></div>
+        </div>
+        <div class="fg fg3">
+          <div class="fgrp"><label>Reorder Level</label><input type="number" id="mf-reorderLevel" placeholder="20" min="0"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+          <input type="checkbox" id="mf-prescription" style="width:auto;cursor:pointer">
+          <label style="text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;cursor:pointer">Requires Prescription (Sch. H / H1 / X)</label>
+        </div>
+        <div class="form-foot">
+          <button class="btn btn-gst" onclick="closeModal('med-modal')">Cancel</button>
+          <button class="btn btn-pri" onclick="saveMed()">💾 Save Medicine</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- SUPPLIER MODAL -->
+<div class="overlay" id="sup-modal">
+  <div class="modal modal-sm">
+    <div class="modal-head"><div class="modal-ttl" id="sup-modal-ttl">Add Supplier</div><button class="close-btn" onclick="closeModal('sup-modal')">✕</button></div>
+    <div class="modal-body">
+      <form id="sup-form" onsubmit="return false">
+        <div class="fg fg2">
+          <div class="fgrp"><label>Company Name *</label><input id="sf-name" required></div>
+          <div class="fgrp"><label>Contact Person</label><input id="sf-contact"></div>
+          <div class="fgrp"><label>Phone</label><input type="tel" id="sf-phone"></div>
+          <div class="fgrp"><label>Email</label><input type="email" id="sf-email"></div>
+          <div class="fgrp"><label>GST Number</label><input id="sf-gstNo" placeholder="33XXXXX1234F1Z5"></div>
+          <div class="fgrp"><label>Drug Lic No</label><input id="sf-dlNo"></div>
+          <div class="fgrp" style="grid-column:span 2"><label>Address</label><input id="sf-address"></div>
+        </div>
+        <div class="form-foot">
+          <button class="btn btn-gst" onclick="closeModal('sup-modal')">Cancel</button>
+          <button class="btn btn-pri" onclick="saveSup()">💾 Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMER MODAL -->
+<div class="overlay" id="cust-modal">
+  <div class="modal modal-sm">
+    <div class="modal-head"><div class="modal-ttl" id="cust-modal-ttl">Add Customer</div><button class="close-btn" onclick="closeModal('cust-modal')">✕</button></div>
+    <div class="modal-body">
+      <form id="cust-form" onsubmit="return false">
+        <div class="fg fg2">
+          <div class="fgrp"><label>Full Name *</label><input id="cf-name" required></div>
+          <div class="fgrp"><label>Phone</label><input type="tel" id="cf-phone"></div>
+          <div class="fgrp"><label>Age</label><input type="number" id="cf-age" min="0" max="120"></div>
+          <div class="fgrp" style="grid-column:span 2"><label>Address</label><input id="cf-address"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+          <input type="checkbox" id="cf-isMonthly" style="width:auto;cursor:pointer">
+          <label style="text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;cursor:pointer">Monthly Customer (send reminder after 25 days)</label>
+        </div>
+        <div class="form-foot">
+          <button class="btn btn-gst" onclick="closeModal('cust-modal')">Cancel</button>
+          <button class="btn btn-pri" onclick="saveCust()">💾 Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toasts"></div>
+<script src="js/db.js"></script>
+<script src="js/printer.js"></script>
+<script src="js/reports.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

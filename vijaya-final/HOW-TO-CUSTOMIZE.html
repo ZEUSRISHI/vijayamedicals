@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Vijaya Medicals — Full Customization Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Teko:wght@600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#0D1117;color:#E6EDF3;min-height:100vh;padding:0}
+
+/* TOP HEADER */
+.top-header{background:linear-gradient(135deg,#0D47A1,#1565C0);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.th-left{display:flex;align-items:center;gap:14px}
+.th-icon{width:46px;height:46px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.th-title{font-family:'Teko',sans-serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:.5px}
+.th-sub{font-size:11px;color:#90CAF9;margin-top:2px;letter-spacing:.5px}
+.th-badge{background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px}
+
+/* MAIN LAYOUT */
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* FILE SECTION */
+.file-section{margin-bottom:32px;border-radius:12px;overflow:hidden;border:1px solid #30363D}
+.file-header{background:#161B22;padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #30363D}
+.file-badge{background:#1565C0;color:#fff;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.5px;font-family:'Fira Code',monospace}
+.file-name{font-family:'Fira Code',monospace;font-size:15px;color:#79C0FF;font-weight:500}
+.file-desc{font-size:12px;color:#8B949E;margin-left:auto}
+
+/* CHANGE ROW */
+.change-rows{background:#0D1117}
+.change-row{border-bottom:1px solid #21262D;display:grid;grid-template-columns:32px 1fr;overflow:hidden}
+.change-row:last-child{border-bottom:none}
+.ln{background:#161B22;border-right:1px solid #21262D;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:14px;min-width:32px}
+.ln-num{font-family:'Fira Code',monospace;font-size:10px;color:#484F58;padding:0 6px;line-height:20px}
+.change-body{padding:12px 16px}
+.change-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.change-label.what{color:#F78166}
+.change-label.to{color:#3FB950}
+.code-block{font-family:'Fira Code',monospace;font-size:12px;border-radius:6px;padding:9px 13px;margin:4px 0;line-height:1.6;overflow-x:auto;white-space:pre}
+.code-old{background:#3D1F1F;border:1px solid #6E2B2B;color:#F78166}
+.code-new{background:#1A3A1F;border:1px solid #2B6E3A;color:#3FB950}
+.note{font-size:11px;color:#8B949E;margin-top:6px;line-height:1.5;display:flex;align-items:flex-start;gap:5px}
+.note::before{content:'💡';flex-shrink:0;font-size:12px}
+
+/* SUMMARY TABLE */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.scard{background:#161B22;border:1px solid #30363D;border-radius:10px;padding:14px 16px}
+.scard-title{font-size:11px;font-weight:800;color:#79C0FF;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.scard-list{list-style:none}
+.scard-list li{font-family:'Fira Code',monospace;font-size:11px;color:#8B949E;padding:3px 0;border-bottom:1px solid #21262D;display:flex;justify-content:space-between;gap:8px}
+.scard-list li:last-child{border-bottom:none}
+.scard-list li .file-tag{color:#E3B341;font-size:10px;white-space:nowrap}
+
+/* SEARCH BOX */
+.search-wrap{background:#161B22;border:1px solid #30363D;border-radius:10px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.search-icon{font-size:18px}
+.search-wrap input{background:transparent;border:none;outline:none;color:#E6EDF3;font-family:'Fira Code',monospace;font-size:13px;flex:1}
+.search-wrap input::placeholder{color:#484F58}
+
+/* QUICK REPLACE SECTION */
+.qr-section{background:#161B22;border:1px solid #30363D;border-radius:12px;padding:20px;margin-bottom:28px}
+.qr-title{font-family:'Teko',sans-serif;font-size:18px;color:#E3B341;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qr-item{background:#0D1117;border:1px solid #21262D;border-radius:8px;padding:12px 14px}
+.qr-key{font-size:10px;font-weight:800;color:#8B949E;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.qr-val{font-family:'Fira Code',monospace;font-size:12px;color:#F78166;background:#3D1F1F;padding:4px 8px;border-radius:4px;display:block;margin-bottom:4px;overflow-x:auto;white-space:nowrap}
+.qr-arrow{text-align:center;color:#484F58;font-size:11px;margin:2px 0}
+.qr-new{font-family:'Fira Code',monospace;font-size:12px;color:#3FB950;background:#1A3A1F;padding:4px 8px;border-radius:4px;display:block;overflow-x:auto;white-space:nowrap}
+
+@media(max-width:700px){
+  .summary-grid{grid-template-columns:1fr}
+  .qr-grid{grid-template-columns:1fr}
+  .change-row{grid-template-columns:28px 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="top-header">
+  <div class="th-left">
+    <div class="th-icon">🔧</div>
+    <div>
+      <div class="th-title">Full Customization Guide</div>
+      <div class="th-sub">Every line to change in every file — Vijaya Medicals PMS</div>
+    </div>
+  </div>
+  <div class="th-badge">4 Files · 28 Change Points</div>
+</div>
+
+<div class="container">
+
+  <!-- QUICK FIND SUMMARY -->
+  <div class="summary-grid">
+    <div class="scard">
+      <div class="scard-title">📄 login.html</div>
+      <ul class="scard-list">
+        <li><span>Page title</span><span class="file-tag">line 6</span></li>
+        <li><span>Shop name</span><span class="file-tag">line 50</span></li>
+        <li><span>Address</span><span class="file-tag">line 52</span></li>
+        <li><span>Email placeholder</span><span class="file-tag">line 62</span></li>
+        <li><span>Sign-in button text</span><span class="file-tag">line 72</span></li>
+        <li><span>Footer info</span><span class="file-tag">line 75</span></li>
+        <li><span>Login email check</span><span class="file-tag">line 91</span></li>
+        <li><span>Login password check</span><span class="file-tag">line 91</span></li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="scard-title">📄 index.html</div>
+      <ul class="scard-list">
+        <li><span>Browser tab title</span><span class="file-tag">line 6</span></li>
+        <li><span>Sidebar shop name</span><span class="file-tag">line 24</span></li>
+        <li><span>Sidebar address</span><span class="file-tag">line 29</span></li>
+        <li><span>Sidebar phone</span><span class="file-tag">line 30</span></li>
+        <li><span>Sidebar user email</span><span class="file-tag">line 55</span></li>
+        <li><span>Settings shop name</span><span class="file-tag">line 326</span></li>
+        <li><span>Settings address</span><span class="file-tag">line 328</span></li>
+        <li><span>Settings phone/email</span><span class="file-tag">line 329-330</span></li>
+        <li><span>Settings GST/DL</span><span class="file-tag">line 331-332</span></li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="scard-title">📄 js/printer.js &amp; js/app.js</div>
+      <ul class="scard-list">
+        <li><span>Bill shop name</span><span class="file-tag">printer.js:49</span></li>
+        <li><span>Bill address</span><span class="file-tag">printer.js:51</span></li>
+        <li><span>Bill phone/GST/DL</span><span class="file-tag">printer.js:54</span></li>
+        <li><span>Bill DL number</span><span class="file-tag">printer.js:67</span></li>
+        <li><span>Bill footer shop</span><span class="file-tag">printer.js:142</span></li>
+        <li><span>Bill footer phone</span><span class="file-tag">printer.js:145</span></li>
+        <li><span>Bill footer email</span><span class="file-tag">printer.js:162</span></li>
+        <li><span>SMS reminder text</span><span class="file-tag">app.js:407</span></li>
+        <li><span>Backup file name</span><span class="file-tag">app.js:459</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- QUICK REPLACE BOX -->
+  <div class="qr-section">
+    <div class="qr-title">⚡ What to replace — at a glance</div>
+    <div class="qr-grid">
+      <div class="qr-item">
+        <div class="qr-key">Shop Name</div>
+        <span class="qr-val">Vijaya Medicals</span>
+        <div class="qr-arrow">↓ replace with your shop name</div>
+        <span class="qr-new">Your Shop Name Here</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">Login Email</div>
+        <span class="qr-val">care.vijayamedicals@gmail.com</span>
+        <div class="qr-arrow">↓ replace with your email</div>
+        <span class="qr-new">youremail@gmail.com</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">Login Password</div>
+        <span class="qr-val">Vijayamedicals</span>
+        <div class="qr-arrow">↓ replace with your password</div>
+        <span class="qr-new">YourPassword123</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">Phone Number</div>
+        <span class="qr-val">8973389393</span>
+        <div class="qr-arrow">↓ replace with your phone</div>
+        <span class="qr-new">9876543210</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">Address</div>
+        <span class="qr-val">FPQX+8M8, Thiruvalluvar Salai, Oddanchatram</span>
+        <div class="qr-arrow">↓ replace with your address</div>
+        <span class="qr-new">Your Street, Your City, State PIN</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">GST Number</div>
+        <span class="qr-val">33XXXXXVM01Z5</span>
+        <div class="qr-arrow">↓ replace with your GSTIN</div>
+        <span class="qr-new">33ABCDE1234F1Z5</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">Drug Licence No</div>
+        <span class="qr-val">TN-OD-1234/2023</span>
+        <div class="qr-arrow">↓ replace with your DL number</div>
+        <span class="qr-new">TN-XX-0000/2024</span>
+      </div>
+      <div class="qr-item">
+        <div class="qr-key">Database Name</div>
+        <span class="qr-val">VijayaPMSv3</span>
+        <div class="qr-arrow">↓ replace with unique name per shop</div>
+        <span class="qr-new">YourShopPMSv1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FILE 1: login.html -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="file-section">
+    <div class="file-header">
+      <span class="file-badge">FILE 1</span>
+      <span class="file-name">login.html</span>
+      <span class="file-desc">Login page — 8 changes</span>
+    </div>
+
+    <div class="change-rows">
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">6</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 6)</div>
+          <div class="code-block code-old">&lt;title&gt;Vijaya Medicals — Login&lt;/title&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">&lt;title&gt;YOUR SHOP NAME — Login&lt;/title&gt;</div>
+          <div class="note">This is the browser tab title shown at the top of Chrome</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">50</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 50)</div>
+          <div class="code-block code-old">    &lt;div class="shop-name"&gt;Vijaya Medicals&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    &lt;div class="shop-name"&gt;YOUR SHOP NAME&lt;/div&gt;</div>
+          <div class="note">Big shop name shown on the login card</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">52</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 52)</div>
+          <div class="code-block code-old">    &lt;div class="shop-addr"&gt;FPQX+8M8, Thiruvalluvar Salai, Oddanchatram&lt;br&gt;Tamil Nadu 624619 &amp;nbsp;|&amp;nbsp; Ph: 8973389393&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    &lt;div class="shop-addr"&gt;YOUR STREET, YOUR AREA, YOUR CITY&lt;br&gt;YOUR STATE PINCODE &amp;nbsp;|&amp;nbsp; Ph: YOUR_PHONE&lt;/div&gt;</div>
+          <div class="note">Address and phone shown under the shop name on login page</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">62</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 62)</div>
+          <div class="code-block code-old">    &lt;input type="email" id="email" placeholder="care.vijayamedicals@gmail.com" ...&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    &lt;input type="email" id="email" placeholder="youremail@gmail.com" ...&gt;</div>
+          <div class="note">Placeholder hint shown inside the email input box</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">72</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 72)</div>
+          <div class="code-block code-old">  &lt;button class="btn-login" onclick="doLogin()"&gt;🔐 Sign In to Vijaya Medicals&lt;/button&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  &lt;button class="btn-login" onclick="doLogin()"&gt;🔐 Sign In to YOUR SHOP NAME&lt;/button&gt;</div>
+          <div class="note">Text on the blue login button</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">75</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 75)</div>
+          <div class="code-block code-old">  &lt;div class="footer-info"&gt;Only care.vijayamedicals@gmail.com can access this system&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  &lt;div class="footer-info"&gt;Only youremail@gmail.com can access this system&lt;/div&gt;</div>
+          <div class="note">Small notice text at the very bottom of the login card</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">91</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 91) — LOGIN CREDENTIALS</div>
+          <div class="code-block code-old">  if(email==='care.vijayamedicals@gmail.com' && pw==='Vijayamedicals'){</div>
+          <div class="change-label to">🟢 Change to YOUR email and password</div>
+          <div class="code-block code-new">  if(email==='youremail@gmail.com' && pw==='YourPassword123'){</div>
+          <div class="note">⚠️ MOST IMPORTANT LINE — this is the actual security check. Change both email and password here. Password is case-sensitive. Use a strong password.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FILE 2: index.html -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="file-section">
+    <div class="file-header">
+      <span class="file-badge">FILE 2</span>
+      <span class="file-name">index.html</span>
+      <span class="file-desc">Main software page — 10 changes</span>
+    </div>
+
+    <div class="change-rows">
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">6</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 6)</div>
+          <div class="code-block code-old">&lt;title&gt;Vijaya Medicals — PMS v3&lt;/title&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">&lt;title&gt;YOUR SHOP NAME — PMS v3&lt;/title&gt;</div>
+          <div class="note">Browser tab title for the main software window</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">24</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 24)</div>
+          <div class="code-block code-old">      &lt;div class="lt1"&gt;Vijaya Medicals&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">      &lt;div class="lt1"&gt;YOUR SHOP NAME&lt;/div&gt;</div>
+          <div class="note">Shop name shown in the dark sidebar at the top left</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">29</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 29)</div>
+          <div class="code-block code-old">    &lt;div class="sn"&gt;📍 Oddanchatram TN 624619&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    &lt;div class="sn"&gt;📍 YOUR CITY STATE PINCODE&lt;/div&gt;</div>
+          <div class="note">Short address shown under shop name in sidebar</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">30</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 30)</div>
+          <div class="code-block code-old">    &lt;div class="sa"&gt;📞 8973389393&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    &lt;div class="sa"&gt;📞 YOUR_PHONE_NUMBER&lt;/div&gt;</div>
+          <div class="note">Phone number shown in sidebar below address</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">55</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 55)</div>
+          <div class="code-block code-old">      &lt;div class="ud"&gt;&lt;small&gt;care.vijayamedicals@gmail.com&lt;/small&gt;&lt;strong&gt;Admin&lt;/strong&gt;&lt;/div&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">      &lt;div class="ud"&gt;&lt;small&gt;youremail@gmail.com&lt;/small&gt;&lt;strong&gt;Admin&lt;/strong&gt;&lt;/div&gt;</div>
+          <div class="note">Email shown at the very bottom of the sidebar in the user pill</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">326</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 326)</div>
+          <div class="code-block code-old">              &lt;input id="st-shopName" value="Vijaya Medicals"&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">              &lt;input id="st-shopName" value="YOUR SHOP NAME"&gt;</div>
+          <div class="note">Default value shown in Settings page → Shop Name field</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">328</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 328)</div>
+          <div class="code-block code-old">              &lt;input id="st-address" value="FPQX+8M8, Thiruvalluvar Salai, Oddanchatram, TN 624619"&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">              &lt;input id="st-address" value="YOUR FULL STREET ADDRESS, CITY, STATE PINCODE"&gt;</div>
+          <div class="note">Default value in Settings page → Address field</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">329–330</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (lines 329–330)</div>
+          <div class="code-block code-old">              &lt;input id="st-phone" value="8973389393"&gt;
+              &lt;input id="st-email" value="care.vijayamedicals@gmail.com"&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">              &lt;input id="st-phone" value="YOUR_PHONE"&gt;
+              &lt;input id="st-email" value="youremail@gmail.com"&gt;</div>
+          <div class="note">Default phone and email in Settings page</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">331–332</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (lines 331–332)</div>
+          <div class="code-block code-old">              &lt;input id="st-gst" value="33XXXXXVM01Z5"&gt;
+              &lt;input id="st-dlNo" value="TN-OD-1234/2023"&gt;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">              &lt;input id="st-gst" value="YOUR_GSTIN_NUMBER"&gt;
+              &lt;input id="st-dlNo" value="YOUR_DRUG_LICENCE_NO"&gt;</div>
+          <div class="note">GST number and Drug Licence number in Settings page. These print on every bill.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FILE 3: js/printer.js -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="file-section">
+    <div class="file-header">
+      <span class="file-badge">FILE 3</span>
+      <span class="file-name">js/printer.js</span>
+      <span class="file-desc">Dot matrix bill printing — 7 changes</span>
+    </div>
+
+    <div class="change-rows">
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">49</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 49) — Bill header shop name</div>
+          <div class="code-block code-old">  const title = 'VIJAYA MEDICALS';</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  const title = 'YOUR SHOP NAME IN CAPS';</div>
+          <div class="note">The big centred name at the very top of every printed bill</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">50–51</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (lines 50–51) — Bill sub-title and address</div>
+          <div class="code-block code-old">  const sub  = 'Pharmacy & Medical Store';
+  const addr = 'FPQX+8M8, Thiruvalluvar Salai, Oddanchatram, Tamil Nadu - 624619';</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  const sub  = 'Pharmacy & Medical Store';
+  const addr = 'YOUR FULL ADDRESS, YOUR CITY, YOUR STATE - PINCODE';</div>
+          <div class="note">Second and third lines of the bill header — printed on every bill</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">54</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 54) — Bill contact line</div>
+          <div class="code-block code-old">  const contact = 'Ph: 8973389393  |  Drug Lic: TN-OD-1234/2023  |  GSTIN: 33XXXXXVM01Z5';</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  const contact = 'Ph: YOUR_PHONE  |  Drug Lic: YOUR_DL_NO  |  GSTIN: YOUR_GSTIN';</div>
+          <div class="note">Fourth line of bill header — phone, drug licence, and GSTIN. This prints on every bill.</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">67</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 67) — DL number in bill meta row</div>
+          <div class="code-block code-old">  const r2 = `DL#     : TN-OD-1234/2023`;</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  const r2 = `DL#     : YOUR_DRUG_LICENCE_NO`;</div>
+          <div class="note">Drug licence shown in the bill date/terminal row</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">142</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 142) — Signature section</div>
+          <div class="code-block code-old">    pad('For Vijaya Medicals', 68)</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    pad('For YOUR SHOP NAME', 68)</div>
+          <div class="note">Text above the pharmacist signature line at the bottom of the bill</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">145</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 145) — Customer care</div>
+          <div class="code-block code-old">    pad('Customer Care: 8973389393', 68) +</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">    pad('Customer Care: YOUR_PHONE', 68) +</div>
+          <div class="note">Customer care phone number printed on bill bottom</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">162</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 162) — Footer email and website</div>
+          <div class="code-block code-old">  const f2 = 'care.vijayamedicals@gmail.com  |  vijayamedicals.in  |  Toll Free: 8973389393';</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  const f2 = 'youremail@gmail.com  |  yourwebsite.in  |  Toll Free: YOUR_PHONE';</div>
+          <div class="note">Last contact line printed at the very bottom of every bill. If no website, just put the phone twice.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FILE 4: js/app.js -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="file-section">
+    <div class="file-header">
+      <span class="file-badge">FILE 4</span>
+      <span class="file-name">js/app.js</span>
+      <span class="file-desc">App logic — 3 changes</span>
+    </div>
+
+    <div class="change-rows">
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">407</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 407) — Monthly SMS reminder text</div>
+          <div class="code-block code-old">💬 SMS to send: "Dear ${r.customer.name}, your monthly medicines are due at Vijaya Medicals, Oddanchatram. Please visit or call 8973389393."</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">💬 SMS to send: "Dear ${r.customer.name}, your monthly medicines are due at YOUR SHOP NAME, YOUR CITY. Please visit or call YOUR_PHONE."</div>
+          <div class="note">The WhatsApp/SMS reminder message shown on the Alerts page for monthly customers</div>
+        </div>
+      </div>
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">459</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 459) — Backup file name</div>
+          <div class="code-block code-old">  a.download='vijaya-medicals-backup-'+today()+'.json';</div>
+          <div class="change-label to">🟢 Change to</div>
+          <div class="code-block code-new">  a.download='your-shop-name-backup-'+today()+'.json';</div>
+          <div class="note">The filename when you click the Backup button — downloaded as a .json file</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FILE 5: js/db.js -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="file-section">
+    <div class="file-header">
+      <span class="file-badge">FILE 5</span>
+      <span class="file-name">js/db.js</span>
+      <span class="file-desc">Database — 1 important change</span>
+    </div>
+
+    <div class="change-rows">
+
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">2</span></div>
+        <div class="change-body">
+          <div class="change-label what">🔴 Current (line 2) — Database name</div>
+          <div class="code-block code-old">const DB_NAME='VijayaPMSv3', DB_VER=1;</div>
+          <div class="change-label to">🟢 Change to (use a unique name per shop)</div>
+          <div class="code-block code-new">const DB_NAME='YourShopNamePMS', DB_VER=1;</div>
+          <div class="note">⚠️ If you install this software for multiple pharmacies on the same computer, each shop MUST have a different DB_NAME. Otherwise they will share the same database and mix up data. Example: 'RameshMedicalsPMS', 'SundaraMedicalsPMS'</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPLETE EXAMPLE -->
+  <div class="file-section">
+    <div class="file-header">
+      <span class="file-badge">EXAMPLE</span>
+      <span class="file-name">Complete filled example — "Sri Murugan Medicals, Dindigul"</span>
+      <span class="file-desc">Copy this pattern for any new shop</span>
+    </div>
+    <div class="change-rows">
+      <div class="change-row">
+        <div class="ln"><span class="ln-num">ALL</span></div>
+        <div class="change-body">
+          <div class="change-label to">🟢 Example: All values for a new pharmacy</div>
+          <div class="code-block code-new" style="line-height:1.8"><!-- login.html line 6 -->
+&lt;title&gt;Sri Murugan Medicals — Login&lt;/title&gt;
+
+<!-- login.html line 50 -->
+&lt;div class="shop-name"&gt;Sri Murugan Medicals&lt;/div&gt;
+
+<!-- login.html line 52 -->
+&lt;div class="shop-addr"&gt;45, Gandhi Road, Dindigul&lt;br&gt;Tamil Nadu 624001 &amp;nbsp;|&amp;nbsp; Ph: 9944112233&lt;/div&gt;
+
+<!-- login.html line 91 — CREDENTIALS -->
+if(email==='murugan.medicals@gmail.com' &amp;&amp; pw==='Murugan@2024'){
+
+<!-- index.html line 24 -->
+&lt;div class="lt1"&gt;Sri Murugan Medicals&lt;/div&gt;
+
+<!-- index.html line 29-30 -->
+&lt;div class="sn"&gt;📍 Dindigul TN 624001&lt;/div&gt;
+&lt;div class="sa"&gt;📞 9944112233&lt;/div&gt;
+
+<!-- printer.js line 49 -->
+const title = 'SRI MURUGAN MEDICALS';
+
+<!-- printer.js line 51 -->
+const addr = '45, Gandhi Road, Dindigul, Tamil Nadu - 624001';
+
+<!-- printer.js line 54 -->
+const contact = 'Ph: 9944112233  |  Drug Lic: TN-DGL-5678/2024  |  GSTIN: 33ABCDE5678F1Z9';
+
+<!-- db.js line 2 -->
+const DB_NAME='SriMuruganMedicalsPMS', DB_VER=1;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#161B22;border:1px solid #30363D;border-radius:10px;padding:16px 20px;margin-top:8px;font-size:12px;color:#8B949E;line-height:1.8">
+    <strong style="color:#E6EDF3">Summary:</strong> Total changes needed = <strong style="color:#3FB950">28 lines across 5 files</strong>.
+    The most critical is <strong style="color:#F78166">login.html line 91</strong> — that is the actual password lock.
+    All bill details come from <strong style="color:#F78166">js/printer.js</strong>.
+    Never change the CSS or any other JavaScript logic — only the text values listed above.
+  </div>
+
+</div>
+</body>
+</html>

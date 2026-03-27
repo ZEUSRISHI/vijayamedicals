@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Epson LQ-2090II Setup — Vijaya Medicals</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#EEF2F7;color:#1A1A2E;padding:20px}
+.header{background:#0D47A1;color:white;border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.hico{width:50px;height:50px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.ht1{font-family:'Teko',sans-serif;font-size:22px;font-weight:600;letter-spacing:.5px}
+.ht2{font-size:11px;color:#90CAF9;margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:white;border-radius:12px;border:1px solid #E0E8F0;overflow:hidden}
+.card-head{background:#F0F4F8;padding:12px 16px;border-bottom:1px solid #E0E8F0;display:flex;align-items:center;gap:8px}
+.card-head .num{width:24px;height:24px;background:#1565C0;color:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.card-title{font-size:13px;font-weight:800;color:#1A1A2E}
+.card-body{padding:14px 16px}
+.step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #F0F4F8}
+.step:last-child{border-bottom:none}
+.step-num{width:20px;height:20px;background:#E3F2FD;color:#1565C0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+.step-text{font-size:12px;color:#37474F;line-height:1.5}
+.step-text strong{color:#1A1A2E}
+.step-text code{background:#EEF2F7;padding:1px 5px;border-radius:4px;font-size:10.5px;font-family:'Courier New',monospace;color:#1565C0}
+.spec-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.spec-table tr{border-bottom:1px solid #F0F4F8}
+.spec-table tr:last-child{border-bottom:none}
+.spec-table td{padding:7px 8px;vertical-align:top}
+.spec-table td:first-child{color:#607D8B;font-weight:700;width:42%;white-space:nowrap}
+.spec-table td:last-child{color:#1A1A2E;font-weight:600}
+.warn{background:#FFF3E0;border:1px solid #FFE0B2;border-radius:8px;padding:10px 13px;margin-top:10px;font-size:11.5px;color:#BF360C;line-height:1.6}
+.ok{background:#E8F5E9;border:1px solid #C8E6C9;border-radius:8px;padding:10px 13px;margin-top:10px;font-size:11.5px;color:#1B5E20;line-height:1.6}
+.info{background:#E3F2FD;border:1px solid #BBDEFB;border-radius:8px;padding:10px 13px;margin-top:10px;font-size:11.5px;color:#0D47A1;line-height:1.6}
+.bill-preview{font-family:'Courier New',monospace;font-size:8.5pt;line-height:13pt;background:#FFFFF0;border:1px solid #C8C096;border-radius:6px;padding:12px;white-space:pre;overflow-x:auto;color:#000;margin-top:10px}
+.back-btn{background:#1565C0;color:white;border:none;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:none;display:inline-block;margin-bottom:16px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back to Software</a>
+
+<div class="header">
+  <div class="hico">🖨️</div>
+  <div>
+    <div class="ht1">Epson LQ-2090II Dot Matrix Printer Setup</div>
+    <div class="ht2">Vijaya Medicals — Pharmacy Billing Printer Configuration Guide</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- PRINTER SPECS -->
+  <div class="card">
+    <div class="card-head"><div class="num">📋</div><div class="card-title">Printer Specifications</div></div>
+    <div class="card-body">
+      <table class="spec-table">
+        <tr><td>Model</td><td>Epson LQ-2090II</td></tr>
+        <tr><td>Type</td><td>24-pin Dot Matrix</td></tr>
+        <tr><td>Max Paper Width</td><td>16 inches (406 mm)</td></tr>
+        <tr><td>Print Width</td><td>13.6 inches (345 mm)</td></tr>
+        <tr><td>Max Columns</td><td>136 columns @ 10 CPI</td></tr>
+        <tr><td>Print Speeds</td><td>529 cps (Draft), 180 cps (NLQ)</td></tr>
+        <tr><td>Interface</td><td>USB, Parallel, Serial</td></tr>
+        <tr><td>Paper Feed</td><td>Tractor (push/pull), friction</td></tr>
+        <tr><td>Character Pitch</td><td>10, 12, 15, 17, 20 CPI</td></tr>
+        <tr><td>Paper Weight</td><td>52–90 g/m² single sheet</td></tr>
+        <tr><td>Recommended Font</td><td>Courier New 10pt (10 CPI)</td></tr>
+      </table>
+      <div class="info">ℹ️ <strong>Best setting for billing:</strong> Use <strong>10 CPI (Courier 10pt)</strong> for 136 columns. This fits all bill columns perfectly on 15" continuous feed paper.</div>
+    </div>
+  </div>
+
+  <!-- DRIVER INSTALL -->
+  <div class="card">
+    <div class="card-head"><div class="num">1</div><div class="card-title">Install Epson Driver (Windows)</div></div>
+    <div class="card-body">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Go to <strong>epson.com</strong> → Support → Search <code>LQ-2090II</code></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Download <strong>Epson LQ-2090II ESC/P Driver</strong> for your Windows version (32/64-bit)</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Run installer → Follow prompts → Connect printer via <strong>USB cable</strong> when asked</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">After install: Open <strong>Control Panel → Devices & Printers</strong> — verify <code>EPSON LQ-2090II</code> appears</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">Right-click → <strong>Set as Default Printer</strong></div></div>
+      <div class="warn">⚠️ <strong>Important:</strong> Load continuous-feed paper into the tractor feed BEFORE installing driver, so Windows detects correct paper size.</div>
+    </div>
+  </div>
+
+  <!-- WINDOWS PRINTER SETTINGS -->
+  <div class="card">
+    <div class="card-head"><div class="num">2</div><div class="card-title">Windows Printing Preferences</div></div>
+    <div class="card-body">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Control Panel → Devices & Printers → Right-click <code>EPSON LQ-2090II</code> → <strong>Printing Preferences</strong></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Paper/Quality tab:</strong><br>Paper Size: <code>Custom — 13.6in × 11in</code><br>Orientation: <code>Portrait</code></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Advanced tab:</strong><br>Print Quality: <code>NLQ (Near Letter Quality)</code><br>Character Pitch: <code>10 CPI</code><br>Font: <code>Courier</code></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Page Setup:</strong><br>Top margin: <code>0.2 inch</code><br>Left margin: <code>0.3 inch</code><br>Right margin: <code>0.3 inch</code></div></div>
+      <div class="ok">✅ Click <strong>Apply → OK</strong> to save. These settings apply every time you print.</div>
+    </div>
+  </div>
+
+  <!-- CHROME PRINT SETTINGS -->
+  <div class="card">
+    <div class="card-head"><div class="num">3</div><div class="card-title">Chrome Browser Print Settings</div></div>
+    <div class="card-body">
+      <div class="step"><div class="step-num">1</div><div class="step-text">When bill print window opens, Chrome print dialog appears automatically</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Destination:</strong> Select <code>EPSON LQ-2090II</code> (not "Save as PDF")</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>More settings → Paper size:</strong> <code>Custom — 13.6in × 11in</code></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Margins:</strong> <code>Minimum</code> or <code>None</code></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Scale:</strong> <code>100%</code> — never scale up/down</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text"><strong>Headers and footers:</strong> <code>OFF</code> (uncheck)</div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-text"><strong>Background graphics:</strong> <code>OFF</code></div></div>
+      <div class="step"><div class="step-num">8</div><div class="step-text">Click <strong>Print</strong> — the bill sends to Epson LQ-2090II</div></div>
+      <div class="warn">⚠️ <strong>First time only:</strong> Do a test print on plain paper first. Check if all 136 columns fit within the paper width. Adjust left margin if needed.</div>
+    </div>
+  </div>
+
+  <!-- PAPER LOADING -->
+  <div class="card">
+    <div class="card-head"><div class="num">4</div><div class="card-title">Loading Paper — Tractor Feed</div></div>
+    <div class="card-body">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Use <strong>15 inch wide continuous-feed paper</strong> (tractor holes on both sides)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Open the tractor feed cover on the back of the printer</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Align the left tractor to position <code>0</code>. Set right tractor to match paper width (15 inch = position 15)</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Feed the paper through, align holes onto tractor pins on both sides</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">Press <strong>Load/Eject</strong> button — printer advances paper to top-of-form</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text">Set the paper selector lever to <strong>Tractor</strong> position</div></div>
+      <div class="ok">✅ <strong>Recommended paper:</strong> 15" × 11" single-part continuous stationery. For duplicate copies use 2-part NCR paper.</div>
+    </div>
+  </div>
+
+  <!-- BILL COLUMN LAYOUT -->
+  <div class="card">
+    <div class="card-head"><div class="num">5</div><div class="card-title">Bill Column Layout (136 cols @ 10 CPI)</div></div>
+    <div class="card-body">
+      <table class="spec-table">
+        <tr><td>#</td><td>3 cols</td></tr>
+        <tr><td>Item Name</td><td>28 cols</td></tr>
+        <tr><td>Batch No</td><td>10 cols</td></tr>
+        <tr><td>Box No</td><td>9 cols</td></tr>
+        <tr><td>Expiry</td><td>8 cols</td></tr>
+        <tr><td>Qty</td><td>4 cols</td></tr>
+        <tr><td>MRP</td><td>8 cols</td></tr>
+        <tr><td>Disc %</td><td>4 cols</td></tr>
+        <tr><td>Disc Amt</td><td>8 cols</td></tr>
+        <tr><td>GST %</td><td>4 cols</td></tr>
+        <tr><td>CGST</td><td>8 cols</td></tr>
+        <tr><td>SGST</td><td>8 cols</td></tr>
+        <tr><td>Total Amount</td><td>9 cols</td></tr>
+        <tr><td><strong>+ separators</strong></td><td><strong>= 136 total</strong></td></tr>
+      </table>
+      <div class="info">ℹ️ All columns fit perfectly in 136 characters at 10 CPI on 13.6 inch print width. No column wrapping.</div>
+    </div>
+  </div>
+
+  <!-- SAMPLE BILL PREVIEW -->
+  <div class="card" style="grid-column:span 2">
+    <div class="card-head"><div class="num">👁️</div><div class="card-title">Sample Dot Matrix Bill Preview (screen simulation)</div></div>
+    <div class="card-body">
+      <div class="bill-preview">========================================================================================================================================
+                                              VIJAYA MEDICALS
+                                         Pharmacy & Medical Store
+                              FPQX+8M8, Thiruvalluvar Salai, Oddanchatram, Tamil Nadu - 624619
+                           Ph: 8973389393  |  Drug Lic: TN-OD-1234/2023  |  GSTIN: 33XXXXXVM01Z5
+========================================================================================================================================
+Bill No : VM-1015                               Date    : 18/03/2026                              Time    : 10:32
+Terminal: 001                                   Payment : Cash                                    DL#     : TN-OD-1234/2023
+----------------------------------------------------------------------------------------------------------------------------------------
+Patient : Ramesh Kumar                                                  Doctor  : Dr. Ravi Kumar
+Phone   : 9876501234                                                    Reg No  : MCI-TN-45231
+Cust. GSTIN :                                                           Ref#    : VM-REF-1015
+----------------------------------------------------------------------------------------------------------------------------------------
+#   Item Name                     Batch      Box No    Expiry   Qty      MRP   D%     DAmt   G%     CGST     SGST  Tot Amt
+----------------------------------------------------------------------------------------------------------------------------------------
+1   Paracetamol 500mg             CPL2401    BX-001    2026-09    3    25.50    5     3.83   12     1.91     1.91    76.13
+2   Metformin 500mg               USV2404    BX-004    2027-03    2    35.00    0     0.00   12     4.20     4.20    78.40
+3   Azithromycin 500mg            CPL2406    BX-006    2026-12    1   110.00    0     0.00   12     6.60     6.60   123.20
+----------------------------------------------------------------------------------------------------------------------------------------
+
+                                                                                  Gross Amount         : Rs.277.50
+                                                                                  Item Discount        : -Rs.3.83
+                                                                                  CGST                 : Rs.12.71
+                                                                                  SGST                 : Rs.12.71
+                                                                                  Total GST            : Rs.25.42
+                                                                                  --------------------------------------------------
+                                                                                  NET TOTAL            : Rs.299.09
+                                                                                  ==================================================
+
+----------------------------------------------------------------------------------------------------------------------------------------
+* DPCO Items    No Exchange OR Returns                              For Vijaya Medicals
+Customer Care: 8973389393                                                                                  
+WISH U SPEEDY RECOVERY                                              ________________________
+                                                                    Pharmacist Signature
+----------------------------------------------------------------------------------------------------------------------------------------
+                                    No tax is payable on reverse charge basis
+                       care.vijayamedicals@gmail.com  |  vijayamedicals.in  |  Toll Free: 8973389393
+                       -- Computer generated invoice. This is a valid Tax Invoice. --
+========================================================================================================================================</div>
+    </div>
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <div class="card">
+    <div class="card-head"><div class="num">⚠️</div><div class="card-title">Troubleshooting Common Issues</div></div>
+    <div class="card-body">
+      <div class="step"><div class="step-num">❓</div><div class="step-text"><strong>Bill columns are misaligned:</strong><br>Check that Chrome scale is exactly 100%. Re-verify paper margins in Printing Preferences are 0.2" top, 0.3" left.</div></div>
+      <div class="step"><div class="step-num">❓</div><div class="step-text"><strong>Text printing too large/small:</strong><br>Confirm character pitch is 10 CPI in printer properties. Font must be Courier (not proportional fonts).</div></div>
+      <div class="step"><div class="step-num">❓</div><div class="step-text"><strong>Paper jamming:</strong><br>Re-align tractor pins. Ensure both left and right tractors are locked at correct paper width. Use proper continuous feed paper.</div></div>
+      <div class="step"><div class="step-num">❓</div><div class="step-text"><strong>Only half the bill prints:</strong><br>Paper size in Chrome must match physical paper (13.6" × 11"). Select custom size, not A4.</div></div>
+      <div class="step"><div class="step-num">❓</div><div class="step-text"><strong>Printer not detected in Chrome:</strong><br>Ensure Epson driver is installed. In Chrome print dialog, click "See more" to show all installed printers.</div></div>
+    </div>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="card">
+    <div class="card-head"><div class="num">⚡</div><div class="card-title">Quick Reference Card</div></div>
+    <div class="card-body">
+      <table class="spec-table">
+        <tr><td>Paper type</td><td>15" continuous tractor feed</td></tr>
+        <tr><td>Paper size (Chrome)</td><td>Custom 13.6in × 11in</td></tr>
+        <tr><td>Font</td><td>Courier New, 9.5pt</td></tr>
+        <tr><td>Line height</td><td>14pt</td></tr>
+        <tr><td>CPI setting</td><td>10 CPI (10 characters/inch)</td></tr>
+        <tr><td>Margins</td><td>Top: 0.2in, Left/Right: 0.3in</td></tr>
+        <tr><td>Scale</td><td>100% always</td></tr>
+        <tr><td>Headers/footers</td><td>OFF</td></tr>
+        <tr><td>Background graphics</td><td>OFF</td></tr>
+        <tr><td>Print quality</td><td>NLQ for bills, Draft for test</td></tr>
+        <tr><td>Driver mode</td><td>ESC/P 2</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

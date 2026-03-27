@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>How to Run & View Database — Vijaya Medicals</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Teko:wght@600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#0D1117;color:#E6EDF3;padding:0;min-height:100vh}
+.header{background:linear-gradient(135deg,#0D47A1,#1565C0);padding:20px 28px;display:flex;align-items:center;gap:14px}
+.hico{width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.ht{font-family:'Teko',sans-serif;font-size:22px;color:#fff;font-weight:700}
+.hs{font-size:11px;color:#90CAF9;margin-top:2px}
+.container{max-width:1000px;margin:0 auto;padding:24px 20px}
+.section{margin-bottom:28px}
+.st{font-family:'Teko',sans-serif;font-size:20px;color:#79C0FF;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #21262D;display:flex;align-items:center;gap:8px}
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{background:#161B22;border:1px solid #30363D;border-radius:10px;padding:14px 16px;display:flex;gap:14px}
+.sn{width:28px;height:28px;background:#1565C0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px}
+.st2{font-size:13px;font-weight:700;color:#E6EDF3;margin-bottom:4px}
+.sd{font-size:12px;color:#8B949E;line-height:1.6}
+.cmd{font-family:'Fira Code',monospace;background:#0D1117;border:1px solid #30363D;border-radius:6px;padding:10px 14px;font-size:12px;color:#79C0FF;margin:6px 0;display:block;overflow-x:auto;white-space:pre}
+.cmd-block{background:#0D1117;border:1px solid #30363D;border-radius:8px;padding:14px 16px;margin:8px 0}
+.cmd-label{font-size:10px;font-weight:700;color:#484F58;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.inline-code{font-family:'Fira Code',monospace;background:#161B22;border:1px solid #30363D;padding:1px 6px;border-radius:4px;font-size:11px;color:#E3B341}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:#161B22;border:1px solid #30363D;border-radius:10px;overflow:hidden}
+.ch{padding:10px 14px;background:#21262D;border-bottom:1px solid #30363D;font-size:12px;font-weight:700;color:#79C0FF}
+.cb{padding:14px}
+.ok{background:#1A3A1F;border:1px solid #2B6E3A;border-radius:7px;padding:10px 13px;font-size:12px;color:#3FB950;margin-top:8px;line-height:1.6}
+.warn{background:#3D2000;border:1px solid #6E3A00;border-radius:7px;padding:10px 13px;font-size:12px;color:#E3B341;margin-top:8px;line-height:1.6}
+.info{background:#0D2E4A;border:1px solid #1B567A;border-radius:7px;padding:10px 13px;font-size:12px;color:#79C0FF;margin-top:8px;line-height:1.6}
+.db-table{background:#0D1117;border:1px solid #21262D;border-radius:8px;overflow:hidden;margin:8px 0}
+.db-header{background:#21262D;padding:8px 14px;font-family:'Fira Code',monospace;font-size:12px;color:#E3B341;font-weight:500;border-bottom:1px solid #30363D}
+.db-fields{padding:10px 14px}
+.field{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #161B22;font-size:11.5px}
+.field:last-child{border-bottom:none}
+.field-name{font-family:'Fira Code',monospace;color:#79C0FF;min-width:140px}
+.field-type{color:#8B949E;font-size:10.5px}
+.field-note{color:#484F58;font-size:10px;margin-left:auto}
+.back{background:#1565C0;color:white;border:none;padding:7px 16px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:none;display:inline-block;margin-bottom:18px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="hico">🗄️</div>
+  <div><div class="ht">How to Run & View Database</div><div class="hs">Vijaya Medicals PMS — Complete Setup & Database Guide</div></div>
+</div>
+<div class="container">
+<a href="index.html" class="back">← Back to Software</a>
+
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="st">▶️ How to Run the Software</div>
+<div class="steps">
+  <div class="step">
+    <div class="sn">1</div>
+    <div>
+      <div class="st2">Easiest Method — Just double-click</div>
+      <div class="sd">Unzip the downloaded file → Open folder <span class="inline-code">vijaya-final</span> → Double-click <span class="inline-code">login.html</span> → Opens in Chrome</div>
+      <div class="ok">✅ This works on Windows, Mac, Linux. No installation needed.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sn">2</div>
+    <div>
+      <div class="st2">If blank page — Run Python Server (Windows)</div>
+      <div class="sd">Open Command Prompt (press Win+R → type <span class="inline-code">cmd</span> → Enter)</div>
+      <div class="cmd-block">
+        <div class="cmd-label">Step 1 — Go to the folder</div>
+        <span class="cmd">cd C:\Users\YourName\Downloads\vijaya-final</span>
+        <div class="cmd-label" style="margin-top:10px">Step 2 — Start server</div>
+        <span class="cmd">python -m http.server 8080</span>
+        <div class="cmd-label" style="margin-top:10px">Step 3 — Open in Chrome</div>
+        <span class="cmd">http://localhost:8080/login.html</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sn">3</div>
+    <div>
+      <div class="st2">If Python not installed — Use Node.js</div>
+      <div class="cmd-block">
+        <span class="cmd">cd C:\Users\YourName\Downloads\vijaya-final
+npx serve .</span>
+      </div>
+      <div class="sd">Then open the URL it shows (usually <span class="inline-code">http://localhost:3000</span>)</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sn">4</div>
+    <div>
+      <div class="st2">VS Code — Live Server (Easiest for developers)</div>
+      <div class="sd">1. Open VS Code → File → Open Folder → select <span class="inline-code">vijaya-final</span><br>
+      2. Install extension: <span class="inline-code">Live Server</span> by Ritwick Dey<br>
+      3. Right-click <span class="inline-code">login.html</span> → Open with Live Server</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sn">5</div>
+    <div>
+      <div class="st2">Login Credentials</div>
+      <div class="cmd-block">
+        <div class="cmd-label">Email</div>
+        <span class="cmd">care.vijayamedicals@gmail.com</span>
+        <div class="cmd-label" style="margin-top:8px">Password</div>
+        <span class="cmd">Vijayamedicals</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="st">🗄️ Where Database is Stored</div>
+<div class="steps">
+  <div class="step">
+    <div class="sn">📍</div>
+    <div>
+      <div class="st2">Physical location on your computer</div>
+      <div class="cmd-block">
+        <div class="cmd-label">Windows — Chrome</div>
+        <span class="cmd">C:\Users\YourName\AppData\Local\Google\Chrome\User Data\Default\IndexedDB\</span>
+        <div class="cmd-label" style="margin-top:8px">Windows — Edge</div>
+        <span class="cmd">C:\Users\YourName\AppData\Local\Microsoft\Edge\User Data\Default\IndexedDB\</span>
+        <div class="cmd-label" style="margin-top:8px">Mac — Chrome</div>
+        <span class="cmd">~/Library/Application Support/Google/Chrome/Default/IndexedDB/</span>
+      </div>
+      <div class="warn">⚠️ Never delete this folder. Do NOT clear Chrome browsing data. Always use the same browser on the same computer.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="st">👁️ How to View Database in Chrome — Step by Step</div>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div><div class="st2">Open Software in Chrome</div><div class="sd">Open <span class="inline-code">login.html</span> in Google Chrome and log in</div></div></div>
+  <div class="step"><div class="sn">2</div><div><div class="st2">Open Developer Tools</div><div class="sd">Press <span class="inline-code">F12</span> on keyboard — OR — Right-click anywhere → Inspect</div></div></div>
+  <div class="step"><div class="sn">3</div><div><div class="st2">Click Application Tab</div><div class="sd">In DevTools, click the <span class="inline-code">Application</span> tab at the top. If you don't see it, click <span class="inline-code">&gt;&gt;</span> to show more tabs</div></div></div>
+  <div class="step"><div class="sn">4</div><div><div class="st2">Navigate to IndexedDB</div><div class="sd">In the left panel: <span class="inline-code">Storage</span> → <span class="inline-code">IndexedDB</span> → <span class="inline-code">VijayaMedicalsPMS</span></div></div></div>
+  <div class="step"><div class="sn">5</div><div><div class="st2">View Any Table</div><div class="sd">Click any table name to see all records:<br>
+    <span class="inline-code">medicines</span> → all medicines<br>
+    <span class="inline-code">bills</span> → all bills<br>
+    <span class="inline-code">customers</span> → all customers<br>
+    <span class="inline-code">suppliers</span> → all suppliers<br>
+    <span class="inline-code">settings</span> → shop settings</div></div></div>
+  <div class="step"><div class="sn">6</div><div><div class="st2">Click a Record to See Full Details</div><div class="sd">Click any row in the table → the full record shows in the right panel with all field values</div></div></div>
+</div>
+<div class="ok" style="margin-top:12px">✅ You can see all data live. Any changes made in the software show here immediately. Use this to verify your data is saved correctly.</div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="st">📋 Database Structure — All 5 Tables</div>
+<div class="grid2">
+
+  <div class="db-table">
+    <div class="db-header">medicines</div>
+    <div class="db-fields">
+      <div class="field"><span class="field-name">id</span><span class="field-type">Auto Number</span><span class="field-note">Primary Key</span></div>
+      <div class="field"><span class="field-name">name</span><span class="field-type">Text</span><span class="field-note">Medicine name</span></div>
+      <div class="field"><span class="field-name">salt</span><span class="field-type">Text</span><span class="field-note">Generic name</span></div>
+      <div class="field"><span class="field-name">batchNo</span><span class="field-type">Text</span><span class="field-note">Batch number</span></div>
+      <div class="field"><span class="field-name">boxNo</span><span class="field-type">Text</span><span class="field-note">Box number</span></div>
+      <div class="field"><span class="field-name">expiry</span><span class="field-type">YYYY-MM</span><span class="field-note">Expiry month</span></div>
+      <div class="field"><span class="field-name">mrp</span><span class="field-type">Number</span><span class="field-note">Selling price</span></div>
+      <div class="field"><span class="field-name">ptr</span><span class="field-type">Number</span><span class="field-note">Purchase price</span></div>
+      <div class="field"><span class="field-name">gst</span><span class="field-type">Number</span><span class="field-note">GST %</span></div>
+      <div class="field"><span class="field-name">qty</span><span class="field-type">Number</span><span class="field-note">Stock quantity</span></div>
+      <div class="field"><span class="field-name">reorderLevel</span><span class="field-type">Number</span><span class="field-note">Low stock alert</span></div>
+      <div class="field"><span class="field-name">category / manufacturer / supplier / rack / schedule / hsnCode / unit</span><span class="field-type">Text</span><span class="field-note"></span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-header">bills</div>
+    <div class="db-fields">
+      <div class="field"><span class="field-name">id</span><span class="field-type">Auto Number</span><span class="field-note">Primary Key</span></div>
+      <div class="field"><span class="field-name">billNo</span><span class="field-type">Text</span><span class="field-note">VM-XXXX</span></div>
+      <div class="field"><span class="field-name">date</span><span class="field-type">YYYY-MM-DD</span><span class="field-note">Bill date</span></div>
+      <div class="field"><span class="field-name">customerName</span><span class="field-type">Text</span></div>
+      <div class="field"><span class="field-name">customerPhone</span><span class="field-type">Text</span></div>
+      <div class="field"><span class="field-name">doctorName / regNo</span><span class="field-type">Text</span></div>
+      <div class="field"><span class="field-name">payMode</span><span class="field-type">Text</span><span class="field-note">Cash/UPI/Card</span></div>
+      <div class="field"><span class="field-name">items</span><span class="field-type">Array</span><span class="field-note">All line items</span></div>
+      <div class="field"><span class="field-name">gross / disc / gst / cgst / sgst / grandTotal</span><span class="field-type">Numbers</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-header">customers</div>
+    <div class="db-fields">
+      <div class="field"><span class="field-name">id</span><span class="field-type">Auto Number</span><span class="field-note">Primary Key</span></div>
+      <div class="field"><span class="field-name">name / phone / address / age</span><span class="field-type">Text/Number</span></div>
+      <div class="field"><span class="field-name">isMonthly</span><span class="field-type">Boolean</span><span class="field-note">Monthly reminder</span></div>
+      <div class="field"><span class="field-name">lastBillDate</span><span class="field-type">YYYY-MM-DD</span><span class="field-note">For reminders</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-header">suppliers</div>
+    <div class="db-fields">
+      <div class="field"><span class="field-name">id</span><span class="field-type">Auto Number</span></div>
+      <div class="field"><span class="field-name">name / contact / phone / email / address</span><span class="field-type">Text</span></div>
+      <div class="field"><span class="field-name">gstNo</span><span class="field-type">Text</span><span class="field-note">GSTIN</span></div>
+      <div class="field"><span class="field-name">dlNo</span><span class="field-type">Text</span><span class="field-note">Drug licence</span></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="st">💾 Backup & Restore Data</div>
+<div class="steps">
+  <div class="step"><div class="sn">📥</div><div>
+    <div class="st2">Download Backup (in software)</div>
+    <div class="sd">Go to <span class="inline-code">Downloads & PDF</span> page → Click <span class="inline-code">Download JSON Backup</span> → Saves as <span class="inline-code">vijaya-medicals-backup-DATE.json</span></div>
+    <div class="ok" style="margin-top:6px">✅ Do this every week. Store the .json file on USB drive or Google Drive.</div>
+  </div></div>
+  <div class="step"><div class="sn">📤</div><div>
+    <div class="st2">How to restore if data is lost</div>
+    <div class="sd">Currently data restore requires re-entering from the backup JSON file. The JSON file contains all your data in readable format — open it in Notepad to view all records.</div>
+    <div class="warn">⚠️ If Chrome data is cleared, the backup JSON is the only way to recover. Keep it safe!</div>
+  </div></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="st">📁 File Structure</div>
+<div class="cmd-block">
+  <div class="cmd-label">Project Files</div>
+<span class="cmd">vijaya-final/
+├── login.html              ← OPEN THIS FIRST (login page)
+├── index.html              ← Main software
+├── HOW-TO-CUSTOMIZE.html   ← Guide to change shop name/details
+├── SETUP-AND-DATABASE.html ← This file
+├── printer-setup.html      ← Epson LQ-2090II setup guide
+├── README.md               ← Quick start guide
+├── css/
+│   └── style.css           ← All styling (mobile responsive)
+└── js/
+    ├── db.js               ← Database (IndexedDB) layer
+    ├── printer.js          ← Epson LQ-2090II dot matrix print
+    ├── reports.js          ← PDF reports & email module
+    └── app.js              ← All app logic (CRUD, billing, etc.)</span>
+</div>
+</div>
+
+</div>
+</body>
+</html>
